@@ -7,6 +7,7 @@ dict_estoque = {
     'data': []
 }
 
+
 class Produto:
     def __init__(self, GTIN, nome_produto, tipo, valor, quantidade, data_importacao):
         self.__GTIN = GTIN
@@ -15,7 +16,6 @@ class Produto:
         self.__valor = valor
         self.__quantidade = quantidade
         self.__data_importacao = data_importacao
-        
 
     def cadastroEstoque(self):
         dict_estoque['codigo'].append(self.__GTIN)
@@ -33,39 +33,70 @@ class Produto:
         dict_estoque['quantidade'].remove(self.__quantidade)
         dict_estoque['data'].remove(self.__data_importacao)
 
-    def atualizarNome(self, novoNome):
-        index = self.GTIN()
-        dict_estoque['produto'][index] = novoNome
-    
-    def atualizarTipo(self, novoTipo):
-        index = self.GTIN()
-        dict_estoque['tipo'][index] = novoTipo
-
-    def atualizarValor(self, novoValor):
-        index = self.GTIN()
-        dict_estoque['valor'][index] = novoValor
-
-    def atualizarQuantidade(self, novaQuantidade):
-        index = self.GTIN()
-        dict_estoque['quantidade'][index] = novaQuantidade
-
-    def atualizarData(self, novaData):
-        index = self.GTIN()
-        dict_estoque['data'][index] = novaData
-
-    def GTIN(self):
+    def procuraGTIN(self):
         index = 0
-        while(index < len(dict_estoque['codigo'])):
-            if(self.__GTIN == dict_estoque['codigo'][index]):
+        while (index < len(dict_estoque['codigo'])):
+            if (self.__GTIN == dict_estoque['codigo'][index]):
                 return index
-            else:   
+            else:
                 index += 1
                 return index
 
+    @staticmethod
+    def GTIN(self):
+        return self.__GTIN
 
+    @property
+    def nome(self):
+        return self.__nome_produto
 
-##self.__nome_produto = dict_estoque['produto'].append()
+    @property
+    def tipo(self):
+        return self.__tipo
+
+    @property
+    def valor(self):
+        return self.__valor
+
+    @property
+    def quantidade(self):
+        return self.__quantidade
+
+    @property
+    def data(self):
+        return self.__data_importacao
+
+    @nome.setter
+    def nome(self, novoNome):
+        index = self.procuraGTIN()
+        dict_estoque['produto'][index] = novoNome
+
+    @tipo.setter
+    def tipo(self, novoTipo):
+        index = self.procuraGTIN()
+        dict_estoque['tipo'][index] = novoTipo
+
+    @valor.setter
+    def valor(self, novoValor):
+        index = self.procuraGTIN()
+        dict_estoque['valor'][index] = novoValor
+
+    @quantidade.setter
+    def quantidade(self, novaQuantidade):
+        index = self.procuraGTIN()
+        dict_estoque['quantidade'][index] = novaQuantidade
+
+    @data.setter
+    def data(self, novaData):
+        index = self.procuraGTIN()
+        dict_estoque['data'][index] = novaData
+
+    def calcularDespesa():
+        despesa = 0
+        x = 0
+        for x in range(len(dict_estoque['valor'])):
+            despesa += dict_estoque['valor'][x] * dict_estoque['quantidade'][x]
+        print(despesa)
 
     def mostraEstoque():
-        return f'GTIN: {dict_estoque['codigo']}\nProdutos: {dict_estoque['produto']}\nTipos: {dict_estoque['tipo']}\nValores(R$): {dict_estoque['valor']}\nUnidades: {dict_estoque['quantidade']}\nData de importação: {dict_estoque['data']}'
-    
+        print(f'GTIN: {dict_estoque['codigo']}\nProdutos: {dict_estoque['produto']}\nTipos: {dict_estoque['tipo']}\nValores(R$): {dict_estoque['valor']}\nUnidades: {dict_estoque['quantidade']}\nData de importação: {dict_estoque['data']}')
